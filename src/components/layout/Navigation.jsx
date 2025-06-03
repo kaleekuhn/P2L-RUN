@@ -63,9 +63,22 @@ const navItems = [
   }
 ];
 
-export default function Navigation() {
+export default function Navigation({ isOpen, onClose }) {
   return (
-    <nav className="fixed left-0 top-16 h-full w-64 bg-dark-card border-r border-dark-border p-4 overflow-y-auto">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+      
+      {/* Navigation sidebar */}
+      <nav className={`
+        fixed left-0 top-16 h-full w-64 bg-dark-card border-r border-dark-border p-4 overflow-y-auto z-50 transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
       <div className="mb-8">
         <div className="flex items-center space-x-2 mb-4 px-3">
           <Trophy className="w-5 h-5 text-yellow-500" />
@@ -91,6 +104,7 @@ export default function Navigation() {
           <NavLink
             key={item.path}
             to={item.path}
+            onClick={onClose}
             className={({ isActive }) =>
               `group flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 ${
                 isActive
@@ -145,5 +159,6 @@ export default function Navigation() {
         </div>
       </div>
     </nav>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import Header from './components/layout/Header';
 import Navigation from './components/layout/Navigation';
 import Dashboard from './pages/Dashboard';
@@ -11,12 +12,27 @@ import Mentorship from './pages/Mentorship';
 import AISupport from './pages/AISupport';
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
   return (
-    <Router>
+    <Router basename="/P2L-RUN">
       <div className="min-h-screen bg-dark-bg">
-        <Header />
-        <Navigation />
-        <main className="ml-64 mt-16 min-h-[calc(100vh-4rem)]">
+        <Header 
+          onMobileMenuToggle={toggleMobileMenu}
+          isMobileMenuOpen={isMobileMenuOpen}
+        />
+        <Navigation 
+          isOpen={isMobileMenuOpen}
+          onClose={closeMobileMenu}
+        />
+        <main className="lg:ml-64 mt-16 min-h-[calc(100vh-4rem)] transition-all duration-300 ease-in-out">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Dashboard />} />

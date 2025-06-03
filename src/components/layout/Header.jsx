@@ -1,8 +1,8 @@
-import { Bell, Search, User, Heart, MessageCircle } from 'lucide-react';
+import { Bell, Search, User, Heart, MessageCircle, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { mockNotifications } from '../../data/mockData';
 
-export default function Header() {
+export default function Header({ onMobileMenuToggle, isMobileMenuOpen }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const unreadCount = mockNotifications.filter(n => !n.read).length;
@@ -11,19 +11,34 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-dark-card/80 backdrop-blur-lg border-b border-dark-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-4">
+            {/* Mobile menu button */}
+            <button
+              onClick={onMobileMenuToggle}
+              className="lg:hidden p-2 hover:bg-dark-bg rounded-lg transition-all"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6 text-dark-text" />
+              ) : (
+                <Menu className="w-6 h-6 text-dark-text" />
+              )}
+            </button>
+            
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-lg flex items-center justify-center">
                 <Heart className="w-6 h-6 text-white fill-white animate-pulse" />
               </div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">
+              <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent hidden sm:block">
                 Refuge Alumni Network
+              </h1>
+              <h1 className="text-lg font-bold bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent sm:hidden">
+                RAN
               </h1>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center bg-dark-bg rounded-full px-4 py-2 hover:ring-2 hover:ring-brand-primary/30 transition-all">
+          <div className="flex items-center space-x-2 lg:space-x-4">
+            <div className="hidden lg:flex items-center bg-dark-bg rounded-full px-4 py-2 hover:ring-2 hover:ring-brand-primary/30 transition-all">
               <Search className="w-4 h-4 text-dark-muted mr-2" />
               <input
                 type="text"
@@ -32,7 +47,11 @@ export default function Header() {
               />
             </div>
 
-            <button className="relative p-2 hover:bg-dark-bg rounded-lg transition-all group">
+            <button className="md:hidden relative p-2 hover:bg-dark-bg rounded-lg transition-all group">
+              <Search className="w-5 h-5 text-dark-muted group-hover:text-brand-primary transition-colors" />
+            </button>
+
+            <button className="hidden md:block relative p-2 hover:bg-dark-bg rounded-lg transition-all group">
               <MessageCircle className="w-5 h-5 text-dark-muted group-hover:text-brand-primary transition-colors" />
             </button>
 
