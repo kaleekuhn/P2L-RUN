@@ -71,20 +71,22 @@ export default function JobBoard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="relative"
+            className="flex items-center space-x-4"
           >
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-muted" />
-            <input
-              type="text"
-              placeholder="Search for jobs, companies, or skills..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-dark-card rounded-xl border border-dark-border focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all outline-none"
-            />
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-muted" />
+              <input
+                type="text"
+                placeholder="Search for jobs, companies, or skills..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 bg-dark-card rounded-xl border border-dark-border focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all outline-none"
+              />
+            </div>
             <Button
               variant="primary"
-              className="absolute right-2 top-1/2 transform -translate-y-1/2"
               icon={Filter}
+              className="px-6 py-4 whitespace-nowrap"
             >
               Filters
             </Button>
